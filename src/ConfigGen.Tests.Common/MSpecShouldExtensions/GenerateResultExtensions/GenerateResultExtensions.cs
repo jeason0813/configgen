@@ -37,14 +37,14 @@ namespace ConfigGen.Tests.Common.MSpecShouldExtensions.GenerateResultExtensions
         {
             if (results == null) throw new ArgumentNullException(nameof(results));
 
-            var combinedErrors = results.Errors.Union(results.GeneratedFiles.SelectMany(f => f.Errors)).ToArray();
+            var combinedIssues = results.GenerationIssues.Union(results.GeneratedFiles.SelectMany(f => f.GenerationIssues)).ToArray();
 
-            if (!combinedErrors.Any())
+            if (!combinedIssues.Any())
             {
                 return results;
             }
 
-            throw new SpecificationException($"Should indicate success, but indicates failure with the following errors {string.Join("\n- ", combinedErrors.Select(e => e.ToString()))}");
+            throw new SpecificationException($"Should indicate success, but indicates failure with the following issues {string.Join("\n- ", combinedIssues.Select(e => e.ToString()))}");
         }
 
         /// <summary>
@@ -55,8 +55,8 @@ namespace ConfigGen.Tests.Common.MSpecShouldExtensions.GenerateResultExtensions
         {
             if (results == null) throw new ArgumentNullException(nameof(results));
 
-            if (results.Errors.Any()
-                || results.GeneratedFiles.Any(f => f.Errors.Any()))
+            if (results.GenerationIssues.Any()
+                || results.GeneratedFiles.Any(f => f.GenerationIssues.Any()))
             {
                 return results;
             }

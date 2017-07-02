@@ -70,7 +70,7 @@ namespace ConfigGen.Api
             {
                 return new GenerateResult(
                 generatedFiles: Enumerable.Empty<GeneratedFile>(),
-                errors: applyErrors.Select(p => new GenerationIssue(GenerationIssueSeverity.Error, p.Code, "GenerationService", p.Detail)));
+                generationIssues: applyErrors.Select(p => new GenerationIssue(p.Code, "GenerationService", p.Detail)));
             }
 
             var result = _generator.GenerateConfigurations();
@@ -85,7 +85,7 @@ namespace ConfigGen.Api
 
             return new GenerateResult(
                 generatedFiles: generatedFiles,
-                errors: result.Errors.Select(e => e.ToGenerationError()));
+                generationIssues: result.Errors.Select(e => e.ToGenerationIssue()));
         }
 
         [NotNull]
@@ -97,24 +97,15 @@ namespace ConfigGen.Api
             if (result == null) throw new ArgumentNullException(nameof(result));
             if (tokenUsageStatistics == null) throw new ArgumentNullException(nameof(tokenUsageStatistics));
 
-            var errors = result.Errors.Select(e => e.ToGenerationError());
+            var generationIssues = result.Errors.Select(e => e.ToGenerationIssue());
 
             IEnumerable<GenerationIssue> warnings = Enumerable.Empty<GenerationIssue>();
-            if (!errors.Any())
+            if (!generationIssues.Any())
             {
-                var severity = configuration.ErrorOnWarnings ? GenerationIssueSeverity.Error : GenerationIssueSeverity.Warning;
                 warnings = tokenUsageStatistics.UnusedTokens.Select(t =>
-                    new GenerationIssue(severity, GenerationServiceErrorCodes.UnusedTokenErrorCode, GenerationServiceErrorCodes.GenerationServiceErrorSource, $"Unused token: {t}"))
+                    new GenerationIssue(GenerationServiceErrorCodes.UnusedTokenErrorCode, GenerationServiceErrorCodes.GenerationServiceErrorSource, $"Unused token: {t}"))
                     .Concat(tokenUsageStatistics.UnrecognisedTokens.Select(t =>
-                        new GenerationIssue(severity, GenerationServiceErrorCodes.UnrecognisedToken, GenerationServiceErrorCodes.GenerationServiceErrorSource, $"Unrecognised token: {t}")));
-            }
-
-
-            //TODO: Not convinced reporting errors as warnings belongs inside the api boundary.
-            if (configuration.ErrorOnWarnings)
-            {
-                errors = errors.Concat(warnings);
-                warnings = Enumerable.Empty<GenerationIssue>();
+                        new GenerationIssue(GenerationServiceErrorCodes.UnrecognisedToken, GenerationServiceErrorCodes.GenerationServiceErrorSource, $"Unrecognised token: {t}")));
             }
             
             return new GeneratedFile(
@@ -123,8 +114,7 @@ namespace ConfigGen.Api
                 tokenUsageStatistics.UsedTokens,
                 tokenUsageStatistics.UnusedTokens,
                 tokenUsageStatistics.UnrecognisedTokens,
-                warnings,
-                errors,
+                generationIssues,
                 result.HasChanged);
         }
     }

@@ -82,7 +82,7 @@ namespace ConfigGen.Api.Tests.CsvSettingsLoaderTests
 
         It the_result_indicates_success = () => Result.ShouldIndicateSuccess();
 
-        It no_warnings_are_reported = () => Result.GeneratedFiles.SelectMany(f => f.Warnings).ShouldBeEmpty();
+        It no_generation_issues_are_reported = () => Result.GeneratedFiles.SelectMany(f => f.GenerationIssues).ShouldBeEmpty();
 
         It two_files_are_generated = () => Result.GeneratedFiles.Count().ShouldEqual(2);
 

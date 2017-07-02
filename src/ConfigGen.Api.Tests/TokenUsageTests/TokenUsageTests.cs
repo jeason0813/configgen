@@ -56,8 +56,8 @@ namespace ConfigGen.Api.Tests.TokenUsageTests
 
             It one_file_is_generated = () => Result.GeneratedFiles.Count().ShouldEqual(1);
 
-            It no_errors_were_raised =
-                () => Result.Configuration("Configuration1").Errors.ShouldBeEmpty();
+            It no_generation_issues_were_raised =
+                () => Result.Configuration("Configuration1").GenerationIssues.ShouldBeEmpty();
 
             It the_result_indicates_the_supplied_token_and_the_configuration_name_token_was_used =
                 () => Result.Configuration("Configuration1").UsedTokens.ShouldContainOnly("Value1", "MachineName");
@@ -91,8 +91,8 @@ namespace ConfigGen.Api.Tests.TokenUsageTests
 
             It one_file_is_generated = () => Result.GeneratedFiles.Count().ShouldEqual(1);
 
-            It no_errors_were_raised =
-                () => Result.Configuration("Configuration1").Errors.ShouldBeEmpty();
+            It no_generation_issues_are_raised =
+                () => Result.Configuration("Configuration1").GenerationIssues.ShouldBeEmpty();
 
             It the_result_indicates_the_supplied_token_and_the_configuration_name_token_were_used =
                 () => Result.Configuration("Configuration1").UsedTokens.ShouldContainOnly("Value1", "MachineName");
@@ -131,8 +131,8 @@ namespace ConfigGen.Api.Tests.TokenUsageTests
 
             It one_file_is_generated = () => Result.GeneratedFiles.Count().ShouldEqual(1);
 
-            It no_errors_were_raised =
-                () => Result.Configuration("Configuration1").Errors.ShouldBeEmpty();
+            It no_generation_issues_were_raised =
+                () => Result.Configuration("Configuration1").GenerationIssues.ShouldBeEmpty();
 
             It the_result_indicates_the_supplied_token_was_used =
                 () => Result.Configuration("Configuration1").UsedTokens.ShouldContainOnly("Value1", "MachineName");
@@ -165,8 +165,8 @@ namespace ConfigGen.Api.Tests.TokenUsageTests
 
             It one_file_is_generated = () => Result.GeneratedFiles.Count().ShouldEqual(1);
 
-            It no_errors_were_raised =
-                () => Result.Configuration("Configuration1").Errors.ShouldBeEmpty();
+            It no_generation_issues_were_raised =
+                () => Result.Configuration("Configuration1").GenerationIssues.ShouldBeEmpty();
 
             It the_result_indicates_the_supplied_token_and_the_configuration_name_token_were_used =
                 () => Result.Configuration("Configuration1").UsedTokens.ShouldContainOnly("Value1", "MachineName");

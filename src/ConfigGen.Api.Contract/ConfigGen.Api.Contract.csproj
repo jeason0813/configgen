@@ -48,7 +48,6 @@
     <Compile Include="GeneratedFile.cs" />
     <Compile Include="GenerateResult.cs" />
     <Compile Include="GenerationIssue.cs" />
-    <Compile Include="GenerationIssueSeverity.cs" />
     <Compile Include="GenerationServiceErrorCodes.cs" />
     <Compile Include="IGenerationService.cs" />
     <Compile Include="PreferenceGroupInfo.cs" />

@@ -39,24 +39,21 @@ namespace ConfigGen.Api.Contract
             [NotNull] IEnumerable<string> usedTokens,
             [NotNull] IEnumerable<string> unusedTokens,
             [NotNull] IEnumerable<string> unrecognisedTokens,
-            [NotNull] IEnumerable<GenerationIssue> warnings,
-            [NotNull] IEnumerable<GenerationIssue> errors, 
+            [NotNull] IEnumerable<GenerationIssue> generationIssues,
             bool hasChanged)
         {
             if (configurationName == null) throw new ArgumentNullException(nameof(configurationName));
             if (usedTokens == null) throw new ArgumentNullException(nameof(usedTokens));
             if (unusedTokens == null) throw new ArgumentNullException(nameof(unusedTokens));
             if (unrecognisedTokens == null) throw new ArgumentNullException(nameof(unrecognisedTokens));
-            if (warnings == null) throw new ArgumentNullException(nameof(warnings));
-            if (errors == null) throw new ArgumentNullException(nameof(errors));
+            if (generationIssues == null) throw new ArgumentNullException(nameof(generationIssues));
 
             ConfigurationName = configurationName;
             FullPath = fullPath;
             UsedTokens = usedTokens;
             UnusedTokens = unusedTokens;
             UnrecognisedTokens = unrecognisedTokens;
-            Errors = errors;
-            Warnings = warnings;
+            GenerationIssues = generationIssues;
             HasChanged = hasChanged;
         }
 
@@ -78,18 +75,11 @@ namespace ConfigGen.Api.Contract
         public bool HasChanged { get; }
 
         /// <summary>
-        /// Get a collection of errors, if any, that occurred during the generation of this file.
+        /// Get a collection of generation issues, if any, that occurred during the generation of this file.
         /// </summary>
         [NotNull]
         [ItemNotNull]
-        public IEnumerable<GenerationIssue> Errors { get; }
-
-        /// <summary>
-        /// Get a collection of warnings, if any, that occurred during the generation of this file.
-        /// </summary>
-        [NotNull]
-        [ItemNotNull]
-        public IEnumerable<GenerationIssue> Warnings { get; }
+        public IEnumerable<GenerationIssue> GenerationIssues { get; }
 
         /// <summary>
         /// Gets a collection of tokens which were used during the generation of this file.

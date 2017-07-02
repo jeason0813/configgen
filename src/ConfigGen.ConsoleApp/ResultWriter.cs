@@ -40,12 +40,12 @@ namespace ConfigGen.ConsoleApp
 
         public void Report(GenerateResult results)
         {
-            if (results.Errors.Any())
+            if (results.GenerationIssues.Any())
             {
                 _consoleWriter.Error("Generation process failed: ");
-                foreach (GenerationIssue error in results.Errors)
+                foreach (GenerationIssue error in results.GenerationIssues)
                 {
-                    _consoleWriter.Error(error.ToDisplayText());
+                    _consoleWriter.Error(error.ToString());
                 }
 
                 return;
@@ -56,16 +56,16 @@ namespace ConfigGen.ConsoleApp
                 
                 string configurationName = result.ConfigurationName.PadRight(20);
                 string changedMessage = result.HasChanged ? "[FILE CHANGED]  " : "[FILE UNCHANGED]";
-                string warningsMessage = result.Errors.Any() ? "WITH ERRORS"
-                                        : result.UnusedTokens.Any() ? "WITH WARNINGS"
-                                        : "WITHOUT WARNINGS";
+                //string warningsMessage = result.Errors.Any() ? "WITH ERRORS"
+                //                        : result.UnusedTokens.Any() ? "WITH WARNINGS"
+                //                        : "WITHOUT WARNINGS";
 
-                _consoleWriter.Info($"{configurationName} - {changedMessage} - {warningsMessage}");
+                //_consoleWriter.Info($"{configurationName} - {changedMessage} - {warningsMessage}");
 
-                foreach (var error in result.Errors)
-                {
-                    _consoleWriter.Error($" - {error.ToDisplayText()}");
-                }
+                //foreach (var error in result.Errors)
+                //{
+                //    _consoleWriter.Error($" - {error}");
+                //}
 
                 foreach (var unusedToken in result.UnusedTokens)
                 {

@@ -104,10 +104,8 @@ namespace ConfigGen.Api.Tests.TemplateTypeSelectionTests
 
         Because of = () => Result = Subject.Generate(PreferencesToSupplyToGenerator);
 
-        It the_result_indicates_failure = () => Result.Success.ShouldBeFalse();
-
-        It the_result_should_contain_a_single_error_indicating_unknown_template_type =
-            () => Result.Errors.ShouldContainSingleItemWithCode(ErrorCodes.TemplateTypeResolutionFailure);
+        It the_result_should_report_a_single_issue_indicating_unknown_template_type =
+            () => Result.GenerationIssues.ShouldContainSingleItemWithCode(ErrorCodes.TemplateTypeResolutionFailure);
     }
 
     internal class when_invoked_with_an_unrecognised_TemplateType_preference : GenerationServiceTestBase
@@ -125,10 +123,8 @@ namespace ConfigGen.Api.Tests.TemplateTypeSelectionTests
 
         Because of = () => Result = Subject.Generate(PreferencesToSupplyToGenerator);
 
-        It the_result_indicates_failure = () => Result.Success.ShouldBeFalse();
-
-        It the_result_should_contain_a_single_error_indicating_unknown_template_type =
-            () => Result.Errors.ShouldContainSingleItemWithCode(ErrorCodes.UnknownTemplateType);
+        It the_result_should_report_a_single_generation_issue_indicating_unknown_template_type =
+            () => Result.GenerationIssues.ShouldContainSingleItemWithCode(ErrorCodes.UnknownTemplateType);
     }
 
     internal class when_invoked_for_an_xml_template_with_an_unrecognised_extension_and_the_TemplateType_preference : GenerationServiceTestBase

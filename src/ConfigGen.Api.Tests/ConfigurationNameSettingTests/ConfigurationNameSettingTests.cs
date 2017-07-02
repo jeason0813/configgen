@@ -42,7 +42,7 @@ namespace ConfigGen.Api.Tests.ConfigurationNameSettingTests
 
         It one_file_is_generated = () => Result.GeneratedFiles.Count().ShouldEqual(1);
 
-        It no_errors_are_reported_for_the_generated_file = () => Result.GeneratedFiles.First().Errors.ShouldBeEmpty();
+        It no_issues_are_reported_for_the_generated_file = () => Result.GeneratedFiles.First().GenerationIssues.ShouldBeEmpty();
 
         It the_configuration_defaults_to_using_the_value_of_the_MachineName_token_for_its_name =
             () => Result.GeneratedFiles.Select(c => c.ConfigurationName).ShouldContainOnly("Configuration1");
@@ -67,7 +67,7 @@ namespace ConfigGen.Api.Tests.ConfigurationNameSettingTests
 
         It one_file_is_generated = () => Result.GeneratedFiles.Count().ShouldEqual(1);
 
-        It no_errors_are_reported_for_the_generated_file = () => Result.GeneratedFiles.First().Errors.ShouldBeEmpty();
+        It no_issues_are_reported_for_the_generated_file = () => Result.GeneratedFiles.First().GenerationIssues.ShouldBeEmpty();
 
         It the_configuration_uses_the_value_of_the_Value1_token_for_its_name =
             () => Result.GeneratedFiles.Select(c => c.ConfigurationName).ShouldContainOnly("Config1-Value1");
@@ -92,7 +92,7 @@ namespace ConfigGen.Api.Tests.ConfigurationNameSettingTests
 
         It no_files_are_generated = () => Result.GeneratedFiles.Count().ShouldEqual(0);
 
-        It an_error_was_reported_indicating_the_configuration_name_token_was_not_found = 
-            () => Result.Errors.ShouldContainSingleItemWithCode(ErrorCodes.UnknownConfigurationNameSetting);
+        It an_issue_was_reported_indicating_the_configuration_name_token_was_not_found = 
+            () => Result.GenerationIssues.ShouldContainSingleItemWithCode(ErrorCodes.UnknownConfigurationNameSetting);
     }
 }

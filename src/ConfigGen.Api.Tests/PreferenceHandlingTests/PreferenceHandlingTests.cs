@@ -74,13 +74,13 @@ namespace ConfigGen.Api.Tests.PreferenceHandlingTests
 
         It the_result_indicates_failure = () => Result.ShouldIndicateFailure();
 
-        It the_result_should_contain_two_errors = () => Result.Errors.Count().ShouldEqual(2);
+        It the_result_should_report_two_generation_issues = () => Result.GenerationIssues.Count().ShouldEqual(2);
 
-        It one_error_should_indicate_an_unrecognised_preference_for_one_supplied_preference =
-            () => Result.Errors.ShouldContainAnItemWithCode("UnrecognisedPreference").AndWithTextContaining("SomeUnknownPreference");
+        It one_reported_issue_should_indicate_an_unrecognised_preference_for_one_supplied_preference =
+            () => Result.GenerationIssues.ShouldContainAnItemWithCode("UnrecognisedPreference").AndWithTextContaining("SomeUnknownPreference");
 
-        It one_error_should_indicate_an_unrecognised_preference_for_the_other_supplied_preference =
-            () => Result.Errors.ShouldContainAnItemWithCode("UnrecognisedPreference").AndWithTextContaining("AnotherUnknownPreference");
+        It one_reported_issue_should_indicate_an_unrecognised_preference_for_the_other_supplied_preference =
+            () => Result.GenerationIssues.ShouldContainAnItemWithCode("UnrecognisedPreference").AndWithTextContaining("AnotherUnknownPreference");
 
         It no_files_should_have_been_generated = () => Result.GeneratedFiles.ShouldBeEmpty();
     }
@@ -102,7 +102,7 @@ namespace ConfigGen.Api.Tests.PreferenceHandlingTests
 
         It the_result_indicates_success = () => Result.ShouldIndicateSuccess();
 
-        It the_result_should_contain_no_errors = () => Result.Errors.ShouldBeEmpty();
+        It the_result_should_contain_no_reported_generation_issues = () => Result.GenerationIssues.ShouldBeEmpty();
 
         It one_configuration_should_have_been_generated_as_per_the_supplied_settings_file = () => Result.GeneratedFiles.Count().ShouldEqual(1);
     }

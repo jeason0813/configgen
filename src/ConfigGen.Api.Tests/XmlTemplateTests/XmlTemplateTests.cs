@@ -57,15 +57,11 @@ namespace ConfigGen.Api.Tests.XmlTemplateTests
 
         Because of = () => Result = Subject.Generate(PreferencesToSupplyToGenerator);
 
-        It the_result_indicates_success = () => Result.Success.ShouldBeTrue();
-
         It one_file_is_generated = () => Result.GeneratedFiles.Count().ShouldEqual(1);
 
-        It no_overall_generation_errors_are_reported = () => Result.Errors.ShouldBeEmpty();
+        It no_overall_generation_issues_are_reported = () => Result.GenerationIssues.ShouldBeEmpty();
 
-        It no_individual_file_generation_errors_are_reported = () => Result.GeneratedFiles.SelectMany(f => f.Errors).ShouldBeEmpty();
-
-        It no_individual_file_generation_warnings_are_reported = () => Result.GeneratedFiles.SelectMany(f => f.Warnings).ShouldBeEmpty();
+        It no_individual_file_generation_issues_are_reported = () => Result.GeneratedFiles.SelectMany(f => f.GenerationIssues).ShouldBeEmpty();
 
         It the_resulting_output_should_be_pretty_printed = () => Result.Configuration("Configuration1").ShouldContainText(ExpectedOutput);
     }

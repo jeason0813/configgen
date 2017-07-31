@@ -45,8 +45,8 @@ namespace ConfigGen.Settings.Text.Csv
             var settingsFileInfo = new FileInfo(settingsFile);
             if (!settingsFileInfo.Exists)
             {
-                //TODO: migrate this exception to an error
-                throw new FileNotFoundException("The specified settings file path was not found: " + settingsFileInfo.FullName, settingsFileInfo.FullName);
+                return Result<IEnumerable<IDictionary<string, object>>, IEnumerable<Error>>
+                    .CreateFailureResult(new[] {new CsvSettingsLoadError("jj", "kk")}); //TODO: RJL - you were here
             }
 
             var machineSettings = new List<IDictionary<string, object>>();

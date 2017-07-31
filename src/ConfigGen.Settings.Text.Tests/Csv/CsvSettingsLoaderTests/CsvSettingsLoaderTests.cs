@@ -26,7 +26,7 @@ using Machine.Specifications;
 namespace ConfigGen.Settings.Text.Tests.Csv.CsvSettingsLoaderTests
 {
     [Subject(typeof(CsvSettingsLoader))]
-    public class the_xml_settings_loader : MachineSpecificationTestBase<CsvSettingsLoader>
+    public class the_csv_settings_loader : MachineSpecificationTestBase<CsvSettingsLoader>
     {
         Establish context = () => Subject = new CsvSettingsLoader();
 

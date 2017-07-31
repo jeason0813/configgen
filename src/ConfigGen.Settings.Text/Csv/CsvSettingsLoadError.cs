@@ -1,4 +1,4 @@
-#region Copyright and License Notice
+﻿#region Copyright and License Notice
 // Copyright (C)2010-2017 - INEX Solutions Ltd
 // https://github.com/inex-solutions/configgen
 // 
@@ -18,24 +18,19 @@
 // the GNU Lesser General Public License along with ConfigGen.  
 // If not, see <http://www.gnu.org/licenses/>
 #endregion
-
-using System.Collections.Generic;
+using ConfigGen.Domain.Contract;
 using ConfigGen.Utilities.Annotations;
 
-namespace ConfigGen.Domain.Contract.Preferences
+namespace ConfigGen.Settings.Text.Csv
 {
-    public interface IPreferencesManager
+    public class CsvSettingsLoadError : Error
     {
         [NotNull]
-        IEnumerable<IPreferenceGroup> KnownPreferenceGroups { get; }
+        public static readonly string CsvSettingsLoadErrorSource = "CsvSettingsLoader";
 
-        [NotNull]
-        IEnumerable<Error> ApplyPreferences([NotNull] IEnumerable<KeyValuePair<string, string>> suppliedPreferences);
-
-        [NotNull]
-        IEnumerable<Error> ApplyDefaultPreferences([NotNull] IEnumerable<KeyValuePair<string, string>> defaultPreferences);
-
-        [NotNull]
-        TPreferenceType GetPreferenceInstance<TPreferenceType>() where TPreferenceType : new();
+        public CsvSettingsLoadError([NotNull] string code, [CanBeNull] string detail)
+            : base(CsvSettingsLoadErrorSource, code, detail)
+        {
+        }
     }
 }

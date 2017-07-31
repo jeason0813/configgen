@@ -78,10 +78,8 @@ namespace ConfigGen.Api.Tests.TemplatePreferencesTests
 </xmlRoot>";
                 File.WriteAllText("App.Config.Template.razor", template);
 
-                //TODO: remove the empty line from where the razor c# code was.
                 ExpectedResult =
-@"
-<xmlRoot>
+@"<xmlRoot>
    <Value attr=""this_is_a_very_long_attribute"">Config1-Value1 - Config1-Value2</Value>
 </xmlRoot>";
 
@@ -96,7 +94,7 @@ namespace ConfigGen.Api.Tests.TemplatePreferencesTests
 
             It the_result_indicates_success = () => Result.ShouldIndicateSuccess();
 
-            It the_output_was_not_pretty_printed = () => Result.Configuration("Configuration1").ShouldContainText(ExpectedResult);
+            It the_output_was_not_pretty_printed = () => Result.Configuration("Configuration1").ShouldContainXml(ExpectedResult);
         }
 
         internal class when_an_unknown_preference_is_supplied_in_the_template : GenerationServiceTestBase

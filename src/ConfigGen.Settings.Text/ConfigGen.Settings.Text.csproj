@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="Csv\CsvSettingsLoader.cs" />
     <Compile Include="Csv\CsvSettingsLoaderModule.cs" />
+    <Compile Include="Csv\CsvSettingsLoadError.cs" />
     <Compile Include="Xml\Configuration.cs" />
     <Compile Include="Xml\Group.cs" />
     <Compile Include="Xml\IConfigurationContainer.cs" />
